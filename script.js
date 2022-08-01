@@ -1,12 +1,11 @@
-var donnees = [
-    {nom: "Jean Dupond", numero: "03.86.24.18.32"},
-    {nom: "Jacques Dupont", numero: "03.86.28.19.45"}
-];
+var donnees = JSON.parse(localStorage.getItem('annuaire')) || [];
+
 
 var liste = document.getElementById('liste');
 
 function afficher_donnees() {
-    verifier_donnees();
+    console.log('affichage');
+
     liste.innerHTML = ``;
     for (let i in donnees) {
         let donnee = donnees[i];
@@ -15,16 +14,20 @@ function afficher_donnees() {
                                 <td><input id="numero-${i}" type="text" contenteditable onchange="gerer_donnee(${i}, 'numero')" value="${donnee.numero}"></td>
                             </tr>`;
     }
-    console.log('affichage');
 }
 
 function gerer_donnee(i, type) {
     console.log('gestion');
+
     donnees[i][type] = document.getElementById(`${type}-${i}`).value;
+    verifier_donnees();
+    sauvegarder_donnees();
     afficher_donnees();
 }
 
 function verifier_donnees() {
+    console.log('verification');
+
     let donnees_vides = []
     for (let i in donnees) {
         let donnee = donnees[i];
@@ -36,8 +39,14 @@ function verifier_donnees() {
         donnees.splice(i, 1);
     }
     donnees.splice(0, 0, {nom: "", numero: ""});
-    console.log('verification')
 }
 
+function sauvegarder_donnees() {
+    console.log('sauvegarde');
+
+    localStorage.setItem('annuaire', JSON.stringify(donnees));
+}
+
+verifier_donnees();
 afficher_donnees();
     
