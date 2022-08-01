@@ -1,7 +1,7 @@
 var donnees = JSON.parse(localStorage.getItem('annuaire')) || [];
 
-
 var liste = document.getElementById('liste');
+var recherche = document.getElementById('recherche');
 
 function afficher_donnees() {
     console.log('affichage');
@@ -9,10 +9,16 @@ function afficher_donnees() {
     liste.innerHTML = ``;
     for (let i in donnees) {
         let donnee = donnees[i];
-        liste.innerHTML += `<tr>
-                                <td><input id="nom-${i}" type="text" contenteditable onchange="gerer_donnee(${i}, 'nom')" value="${donnee.nom}"></td>
-                                <td><input id="numero-${i}" type="text" contenteditable onchange="gerer_donnee(${i}, 'numero')" value="${donnee.numero}"></td>
-                            </tr>`;
+        if (recherche.value == ''
+            || (donnee.nom == "" && donnee.numero == "")
+            || donnee.nom.toLowerCase().indexOf(recherche.value.toLowerCase()) != -1
+            || (recherche.value.replace(/[^0-9]/g, '') != ''
+                && donnee.numero.replace(/[^0-9]/g, '').indexOf(recherche.value.replace(/[^0-9]/g, '')) != -1)) {
+            liste.innerHTML += `<tr>
+                                    <td><input id="nom-${i}" type="text" contenteditable onchange="gerer_donnee(${i}, 'nom')" value="${donnee.nom}"></td>
+                                    <td><input id="numero-${i}" type="text" contenteditable onchange="gerer_donnee(${i}, 'numero')" value="${donnee.numero}"></td>
+                                </tr>`;
+        }
     }
 }
 
@@ -47,6 +53,4 @@ function sauvegarder_donnees() {
     localStorage.setItem('annuaire', JSON.stringify(donnees));
 }
 
-verifier_donnees();
 afficher_donnees();
-    

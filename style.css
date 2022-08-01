@@ -19,16 +19,22 @@
     outline: none;
 }
 
+::selection {
+    background-color: hsla(10, 50%, 25%, 50%);
+    color: hsl(0, 0%, 100%);
+}
+
 
 section {
     display: flex;
     flex-flow: column;
     align-items: center;
 
-    padding: 30px;
+    padding: 30px 10px;
 }
 
 h1 {
+    text-align: center;
     font-size: 32px;
     color: hsl(30, 50%, 35%);
 
@@ -44,29 +50,80 @@ table {
 }
 
 thead tr {
-    outline: solid 1px hsl(30, 50%, 55%);
+    outline: solid 1px hsl(10, 50%, 55%);
     outline-offset: -1px;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: hsl(30, 50%, 55%);
-}
-
 th {
-    color: hsl(30, 50%, 45%);
+    color: hsl(10, 50%, 45%);
     text-align: left;
 
     padding: 10px;
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(odd) {
     background-color: hsl(30, 50%, 45%);
 }
 
-td {
-    padding: 10px;
+tbody tr:nth-child(even) {
+    background-color: hsl(30, 50%, 55%);
+}
+tbody tr:nth-child(1) {
+    background-color: hsl(10, 50%, 55%);
 }
 
-input {
+td {
+    padding: 6px;
+}
+
+td input {
     color: hsl(0, 0%, 100%);
+
+    outline: solid 2px transparent;
+
+    padding: 4px;
+    
+    width: min(calc(calc(100vw - 44px) / 2), 250px);
+
+    transition: all 1000ms, width 0ms;
+}
+
+td:nth-child(odd) input {
+    border-radius: 15px 0 0 15px;
+}
+
+td:nth-child(even) input {
+    border-radius: 0 15px 15px 0;
+}
+
+td input:focus {
+    background-color: hsla(10, 50%, 45%, 75%);
+
+    outline: solid 2px hsla(0, 0%, 100%, 25%);
+}
+
+tr:nth-child(1) td input:focus {
+    background-color: hsla(30, 50%, 45%, 75%);
+}
+
+#recherche {
+    position: sticky;
+    bottom: 20px;
+
+    color: hsl(10, 50%, 45%);
+    text-align: center;
+    
+    background-color: hsl(0, 0%, 100%);
+    border: solid 1px hsl(10, 50%, 55%);
+    outline: solid 20px hsl(0, 0%, 100%);
+
+    width: min(calc(100vw - 20px), 524px);
+
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#recherche::placeholder {
+    font-style: oblique;
+    color: hsl(10, 25%, 75%);
 }
