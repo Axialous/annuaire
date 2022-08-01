@@ -1,4 +1,4 @@
-var donnees = JSON.parse(localStorage.getItem('annuaire')) || [];
+var donnees = JSON.parse(localStorage.getItem('annuaire')) || [{nom: "", numero: ""}];
 
 var liste = document.getElementById('liste');
 var recherche = document.getElementById('recherche');
